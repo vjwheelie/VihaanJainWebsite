@@ -16,6 +16,8 @@ export function ContactSection() {
     email: "",
     message: "",
   });
+  const [isSending, setIsSending] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,9 +36,30 @@ export function ContactSection() {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic
+    setIsSending(true);
+    setStatusMessage(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+
+      if (res.ok) {
+        setStatusMessage("Message sent. Thank you!");
+        setFormState({ name: "", email: "", message: "" });
+      } else {
+        const json = await res.json().catch(() => null);
+        setStatusMessage(json?.error || "Failed to send message.");
+      }
+    } catch (err) {
+      setStatusMessage("Network error. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -56,9 +79,9 @@ export function ContactSection() {
               Get In Touch
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              I&apos;m currently seeking research opportunities and would welcome
+              I&apos;m currently seeking research & development opportunities and would welcome
               the chance to connect. Whether you have a question, want to discuss
-              a project, or just want to say hello—feel free to reach out.
+              a project, or just want to say hello, feel free to reach out!
             </p>
           </div>
 
@@ -110,40 +133,14 @@ export function ContactSection() {
                 className="bg-background resize-none"
               />
             </div>
-            <Button type="submit" size="lg" className="w-full sm:w-auto">
-              Send Message
+            <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isSending}>
+              {isSending ? "Sending…" : "Send Message"}
             </Button>
-          </form>
 
-          <div className="mt-12 pt-8 border-t border-border text-center">
-            <p className="text-sm text-muted-foreground mb-4">
-              Or reach out directly:
-            </p>
-            <div className="flex justify-center gap-6 text-sm">
-              <a
-                href="mailto:your.email@example.com"
-                className="text-primary hover:text-primary/80 transition-colors"
-              >
-                Email
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
+            {statusMessage && (
+              <p className="text-sm mt-2 text-center text-muted-foreground">{statusMessage}</p>
+            )}
+          </form>
         </div>
       </div>
     </section>

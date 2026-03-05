@@ -42,11 +42,10 @@ export function AboutSection() {
 
           <div className="space-y-5 text-muted-foreground leading-relaxed">
             <p>
-              I approach problems the way an engineer should—by breaking them
-              down, understanding the underlying systems, and building solutions
-              that actually work. Whether I&apos;m writing code, designing a
-              mechanical system, or analyzing data, I&apos;m most engaged when
-              I&apos;m figuring out how something functions at its core.
+              I&apos;m a Junior at Howard High School who can be seen playing tennis 
+              with his friends, listening to music, and exploring nature. 
+              “Technially” I love solving problems in all types of domains, my favorite being AI &
+              Programming, Mechanical Engineering and Finance. 
             </p>
 
             <p>
@@ -59,28 +58,38 @@ export function AboutSection() {
                 intelligent systems
               </span>{" "}
               comes from a fascination with how we can build machines that
-              learn, adapt, and make decisions. I&apos;m equally drawn to
-              physics and mathematics—not just as academic subjects, but as
-              frameworks for modeling and understanding real-world behavior.
+              learn, adapt, and make decisions, tying in machine learning too.
+              I began my journey in this sphere through my PLTW Engineering classes, 
+              soon learning I loved the software side in what we built, such as 
+              autonomous decision making for small cars that we built. This experience 
+              compounding over three years as a series of classes proved very beneficial 
+              for me, as I learned the “engineering mindset” which structured my 
+              approach to problems.
+
             </p>
 
             <p>
-              Through coursework and independent projects, I&apos;ve developed
-              foundations in programming, data analysis, and engineering design.
-              I&apos;m constantly looking for opportunities to apply what
-              I&apos;ve learned to meaningful challenges.
+              My curiosity in tech led me to learn and create projects like websites 
+              and apps to understand the abstraction behind what we see on a screen. 
+              By learning through doing, I&apos;ve developed functional skills in programming 
+              and engineering design. I'm constantly looking for opportunities to apply what I've learned to meaningful challenges, most recently finding success in USACO. 
+
             </p>
 
             <div className="pt-4">
               <p className="text-foreground font-medium mb-3 text-sm">
                 Relevant Coursework
               </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
                 {[
+                  "PLTW Intro-to-Eng Design",
+                  "PLTW Prin-of-Engineering",
+                  "PLTW Comp-Int Manufacturing",
                   "AP Physics C: Mechanics",
+                  "AP Computer Science A",
                   "Programming Fundamentals",
-                  "Principles of Engineering",
-                  "Data Structures & Algorithms",
+                  "Exploring Computer Science"
+
                 ].map((course) => (
                   <li key={course} className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary" />

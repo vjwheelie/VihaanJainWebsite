@@ -5,9 +5,6 @@ export function Footer() {
         <p className="text-sm text-muted-foreground">
           Designed & Built by Vihaan Jain
         </p>
-        <p className="text-xs text-muted-foreground/70 mt-1">
-          Applying to Johns Hopkins ASPIRE Program
-        </p>
       </div>
     </footer>
   );

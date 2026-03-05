@@ -53,10 +53,7 @@ export function HeroSection() {
               : "opacity-0 translate-y-4"
           }`}
         >
-          I build projects to understand how things work—from neural networks to
-          mechanical systems. Driven by curiosity and analytical thinking, I
-          apply physics, math, and code to solve real problems and explore ideas
-          in artificial intelligence and engineering.
+          Building projects centered around artificial intelligence. Learning and applying technical skills to real-world problems that have measureable impact. 
         </p>
 
         <div

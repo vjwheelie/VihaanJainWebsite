@@ -12,9 +12,9 @@ import {
 
 const codingProjects = [
   {
-    title: "Neural Network Image Classifier",
+    title: "SalesPatriot Defense Contract Procurement Mock-Up",
     description:
-      "Built a convolutional neural network from scratch to classify handwritten digits with 97%+ accuracy. Implemented backpropagation, gradient descent optimization, and data augmentation techniques.",
+      "Built a fully functional contract winning machine, as ",
     technologies: ["Python", "NumPy", "TensorFlow", "Computer Vision"],
     details:
       "This project deepened my understanding of how neural networks learn hierarchical representations. I experimented with different architectures, activation functions, and regularization methods to improve performance. The experience reinforced the importance of understanding the mathematics behind ML algorithms rather than relying solely on pre-built libraries.",
