@@ -1,30 +1,54 @@
+# Vihaan Jain – Portfolio Website
 
-
-
-
-
-
-
-
-
-
-
-# VihaanJainWebsite
+Welcome to my **personal portfolio**! This site showcases my work across **coding, AI/ML, engineering, and business leadership**, along with projects, clubs, and initiatives I’ve been involved in.  
 
 ---
 
-## Contact form (SendGrid)
-
-This project implements a server route that sends contact form submissions via SendGrid. To enable it locally or in production, add the following environment variables:
-
-- `SENDGRID_API_KEY` — your SendGrid API key
-- `SENDGRID_FROM_EMAIL` — email address to use as the sender (e.g. `noreply@yourdomain.com`)
-- `CONTACT_TO_EMAIL` — email address that receives submissions (defaults to `jainvihaan65@gmail.com`)
-
-If the env vars are not set, submissions will be logged to the server console (useful for local development). To test locally:
-
-1. Run `pnpm install` (or `npm install`) to install dependencies.
-2. Start dev server: `pnpm dev` or `npm run dev`.
-3. Submit the contact form and check your terminal for logs or your inbox for sent messages.
+## Coding & AI/ML
+Explore programming projects, AI experiments, and software applications I’ve built.  
+**Highlights include:**
+- Python & Java projects  
+- AI/ML models and experiments  
+- Web apps and tools  
 
 ---
+
+## Engineering
+View my engineering projects, including **VEX** and other technical builds.  
+**Highlights include:**
+- Design and build projects  
+- Problem-solving and prototyping  
+- Team collaboration and technical leadership  
+
+---
+
+## Business & Leadership
+Learn about my experience leading clubs, organizing events, and applying business skills in real-world settings.  
+**Highlights include:**
+- DECA – President
+- FBLA – National Qualifying Member
+- Investment and Stocks Club - Vice President
+- AI Club - Secretary
+- Future Jain Leadership Program - Vice President
+
+**Honor Societies:**
+- National Honor Society
+- National Technical Honor Society
+- National Science Honor Society
+- Rho Kappa Honor Society
+
+---
+
+## About / Contact
+Get in touch or learn more about my academic and personal interests.  
+
+---
+
+## Tech Stack
+- **Frontend**: HTML, CSS, JavaScript  
+- **Hosting & Deployment**: Vercel  
+- **Version Control**: Git & GitHub  
+
+---
+
+Check out the live site here: [www.vihaan-jain.com](https://www.vihaan-jain.com)  
