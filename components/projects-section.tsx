@@ -14,77 +14,77 @@ const codingProjects = [
   {
     title: "SalesPatriot Defense Contract Procurement Mock-Up",
     description:
-      "Built a fully functional contract winning machine, as ",
-    technologies: ["Python", "NumPy", "TensorFlow", "Computer Vision"],
+      "Built a prototype system that automates parts of the federal contract proposal workflow using AI.",
+    technologies: ["Python", "LLM APIs", "Web Scraping", "Dashboard UI"],
     details:
-      "This project deepened my understanding of how neural networks learn hierarchical representations. I experimented with different architectures, activation functions, and regularization methods to improve performance. The experience reinforced the importance of understanding the mathematics behind ML algorithms rather than relying solely on pre-built libraries.",
+      "As part of an internship project with the defense tech startup SalesPatriot (YC W25), my team developed a prototype that automated several steps of the federal procurement workflow. The system scraped Requests for Quote (RFQs) from SAM.gov and DIBBS, extracted key contract requirements using LLMs, and generated draft proposal summaries for human review. We also designed verification and logging features so each AI output could be traced back to the model and prompt used. The final prototype demonstrated a full pipeline from contract discovery to AI-assisted proposal generation, with a human-in-the-loop review layer for reliability.",
   },
   {
-    title: "Predictive Analytics Dashboard",
+    title: "LLM Reliability Experiment for Defense Procurement (SalesPatriot)",
     description:
-      "Developed a data visualization platform that analyzes trends and generates forecasts using statistical models. Features interactive charts and automated report generation.",
-    technologies: ["Python", "Pandas", "Scikit-learn", "Plotly", "SQL"],
+      "Built a benchmarking system to evaluate how reliably large language models extract contract data from real defense procurement documents.",
+    technologies: ["Python", "LangChain", "OpenAI API", "Anthropic API"],
     details:
-      "Started with exploratory data analysis to identify patterns, then implemented time series forecasting models. The dashboard allows users to upload datasets and receive automated insights. Learned about the importance of data preprocessing and feature engineering in building reliable predictive models.",
+      "To better understand AI reliability in high-stakes environments, I built a benchmarking script that tested how well LLMs could extract structured data from real DIBBS Requests for Quote. The system converted RFQ PDFs into model-compatible inputs and evaluated GPT-4o-mini and Claude 3.5 Sonnet on fields such as NSN, quantity, delivery time, and delivery address. Outputs were compared against manually verified ground-truth data to detect hallucinations objectively. Each run logged the model, prompt structure, and results.",
   },
   {
-    title: "Autonomous Decision System",
+    title: "Computer Vision Image Classification Model",
     description:
-      "Created a rule-based AI system that analyzes scenarios and makes logical decisions based on defined parameters and patterns learned from historical data.",
-    technologies: ["Python", "Logic Programming", "Data Analysis"],
+      "Trained a computer vision model to classify images with high accuracy using machine learning techniques and feature extraction.",
+    technologies: ["Python", "Scikit-learn", "OpenCV", "NumPy", "Computer Vision"],
     details:
-      "Explored how AI systems can be designed to make transparent, explainable decisions. Combined symbolic AI approaches with data-driven methods to create a hybrid system that balances interpretability with performance.",
+      "During the Mark Cuban Foundation AI Bootcamp, I began experimenting with computer vision by building an image classification model in Python. I developed a pipeline that processed image data using OpenCV for preprocessing and feature extraction, then trained a classification model using Scikit-learn. I experimented with techniques such as dimensionality reduction, dataset normalization, and model tuning to improve prediction accuracy. Through this project I learned how raw image data is transformed into numerical features that machine learning models can interpret. It also introduced me to core concepts like training/testing splits, overfitting, and model evaluation metrics, which are fundamental when building reliable computer vision systems.",
   },
 ];
 
 const engineeringProjects = [
   {
-    title: "VEX Robotics Competition Robot",
+    title: "Autonomous Guided Vehicle (AGV)",
     problem:
-      "Design and build a competitive robot capable of autonomous and driver-controlled operations for the VEX challenge.",
+      "Design and program a robotic vehicle capable of autonomously navigating a twisting obstacle course using sensor feedback and control algorithms.",
     constraints: [
-      "18\" cube size limit",
-      "Weight optimization",
-      "Power management",
-      "Reliability under stress",
+      "Limited onboard sensors",
+      "Tight turning radius",
+      "Motor synchronization",
+      "Course variability",
     ],
     decisions:
-      "Chose a 4-motor drivetrain configuration to balance speed and torque. Implemented a pneumatic-assisted lifting mechanism to reduce motor load. Designed custom 3D-printed brackets to reduce weight while maintaining structural integrity.",
+      "Implemented sensor-based navigation logic to detect boundaries and adjust steering in real time. Optimized drivetrain configuration for stability during turns and consistent speed across the course.",
     iterations:
-      "Initial design struggled with intake consistency—redesigned the roller mechanism three times, adjusting compression and speed ratios. Final version achieved 95%+ game piece acquisition rate during testing.",
-    technologies: ["C++", "CAD Design", "3D Printing", "Pneumatics"],
+      "Early prototypes frequently drifted off course during sharp turns. Refined steering control and sensor thresholds, improving navigation accuracy and completing the full course reliably.",
+    technologies: ["VEX Robotics", "C++", "Fusion 360", "Sensor Integration"],
   },
   {
-    title: "Energy-Efficient Launcher System",
+    title: "Material Sorting System",
     problem:
-      "Build a projectile launcher that maximizes range while minimizing energy input, applying physics principles to real-world constraints.",
+      "Build an automated mechanism capable of identifying and sorting marbles made of plastic, wood, and steel using physical property detection.",
     constraints: [
-      "Limited spring options",
-      "Consistent launch angle",
-      "Repeatable results",
-      "Safety requirements",
+      "Sensor precision",
+      "Real-time processing",
+      "Mechanical reliability",
+      "Material similarity",
     ],
     decisions:
-      "Used kinematic equations to model optimal launch angles. Designed an adjustable release mechanism to fine-tune trajectory. Selected materials based on energy transfer efficiency calculations.",
+      "Integrated weight thresholds and optical sensing to classify materials. Programmed microcontroller logic to trigger mechanical gates based on detected properties.",
     iterations:
-      "First prototype had high variability in launch distance. Added guide rails and a consistent release trigger mechanism. Achieved less than 5% variance in landing position across 50 trials.",
-    technologies: ["Physics Modeling", "CAD", "Prototyping", "Data Analysis"],
+      "Initial sensor readings produced inconsistent classifications. Introduced calibration routines and improved sensor shielding, increasing sorting accuracy and consistency.",
+    technologies: ["Arduino", "Sensors", "Embedded Programming", "Control Systems"],
   },
   {
-    title: "Automated Sorting Mechanism",
+    title: "High-Torque Mini Tractor",
     problem:
-      "Create a system that sorts objects by physical properties using sensors and actuators, demonstrating feedback control principles.",
+      "Engineer a compact robotic vehicle capable of maximizing torque output to pull heavy loads relative to its size.",
     constraints: [
-      "Processing speed",
-      "Sensor accuracy",
-      "Power budget",
-      "Noise interference",
+      "Small chassis size",
+      "Motor power limitations",
+      "Gear friction losses",
+      "Structural durability",
     ],
     decisions:
-      "Implemented a conveyor-based system with color and weight sensors. Used a microcontroller to process sensor data and control sorting gates. Designed error-handling routines for edge cases.",
+      "Designed a drivetrain with an 11.65:1 gear ratio to maximize torque output. Balanced gear reduction with drivetrain efficiency to maintain stable motion under load.",
     iterations:
-      "Initial sensor readings were inconsistent due to ambient light. Added shielding and calibration routines. Improved sorting accuracy from 78% to 96% through iterative refinement.",
-    technologies: ["Arduino", "Sensors", "Control Systems", "C++"],
+      "Early versions stalled under heavy loads due to inefficient torque transfer. Adjusted gear alignment and drivetrain configuration, achieving a calculated output torque of 18.04 ft-lbs.",
+    technologies: ["Fusion 360", "Mechanical Design", "Gear Systems", "Prototyping"],
   },
 ];
 
