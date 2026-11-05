@@ -1,46 +1,52 @@
-import React from "react"
-import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type { Metadata, Viewport } from "next";
+import { Hanken_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { profile } from "@/lib/site";
+import { getPosts } from "@/lib/writing";
+import "./globals.css";
 
-const _inter = Inter({ subsets: ["latin"] });
-const _jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] });
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-hanken",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: 'Vihaan Jain | Student Engineer',
-  description: 'Student Engineer passionate about AI, systems thinking, and building things to understand how they work.',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+  metadataBase: new URL(profile.site),
+  title: { default: profile.name, template: `%s · ${profile.name}` },
+  description: profile.description,
+  openGraph: {
+    title: profile.name,
+    description: profile.headline,
+    url: profile.site,
+    siteName: profile.name,
+    type: "website",
   },
-}
+  twitter: { card: "summary_large_image", title: profile.name, description: profile.headline },
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0e0d" },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const hasWriting = getPosts().length > 0;
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
-        {children}
+    <html lang="en" className={hanken.variable}>
+      <body className="antialiased">
+        <div className="mx-auto max-w-[80rem] px-5 sm:px-8">
+          <SiteHeader hasWriting={hasWriting} />
+          <main>{children}</main>
+          <SiteFooter />
+        </div>
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

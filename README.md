@@ -1,54 +1,17 @@
-# Vihaan Jain – Portfolio Website
+# vihaan-jain.com
 
-Welcome to my **personal portfolio**! This site showcases my work across **coding, AI/ML, engineering, and business leadership**, along with projects, clubs, and initiatives I’ve been involved in.  
+Personal site. Next.js, Tailwind, deployed on Vercel.
 
----
+## Editing
 
-## Coding & AI/ML
-Explore programming projects, AI experiments, and software applications I’ve built.  
-**Highlights include:**
-- Python & Java projects  
-- AI/ML models and experiments  
-- Web apps and tools  
+- **All copy** lives in `lib/site.ts`. Pages read from it.
+- **Photos and video** go in `public/media/`. See the README there for file names; empty frames fill in on the next build.
+- **Writing** is markdown in `content/writing/`. Posts with `draft: true` show locally but not on the live site, and the Writing link stays hidden until at least one post is published.
+- **Flags** at the top of `lib/site.ts`: `showNSA` (off until approved) and `showPendingMedia` (turn off before submitting if any media is missing).
 
----
+## Running it
 
-## Engineering
-View my engineering projects, including **VEX** and other technical builds.  
-**Highlights include:**
-- Design and build projects  
-- Problem-solving and prototyping  
-- Team collaboration and technical leadership  
-
----
-
-## Business & Leadership
-Learn about my experience leading clubs, organizing events, and applying business skills in real-world settings.  
-**Highlights include:**
-- DECA – President
-- FBLA – National Qualifying Member
-- Investment and Stocks Club - Vice President
-- AI Club - Secretary
-- Future Jain Leadership Program - Vice President
-
-**Honor Societies:**
-- National Honor Society
-- National Technical Honor Society
-- National Science Honor Society
-- Rho Kappa Honor Society
-
----
-
-## About / Contact
-Get in touch or learn more about my academic and personal interests.  
-
----
-
-## Tech Stack
-- **Frontend**: HTML, CSS, JavaScript  
-- **Hosting & Deployment**: Vercel  
-- **Version Control**: Git & GitHub  
-
----
-
-Check out the live site here: [www.vihaan-jain.com](https://www.vihaan-jain.com)  
+```bash
+npm install
+npm run dev
+```
