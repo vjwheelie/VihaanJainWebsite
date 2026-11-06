@@ -14,12 +14,13 @@ export function SiteHeader({ hasWriting }: { hasWriting: boolean }) {
   ];
 
   return (
-    <header className="grid grid-cols-2 gap-x-6 border-b border-fg py-5 md:grid-cols-12 print:hidden">
+    <header className="sticky top-0 z-20 grid h-16 grid-cols-2 items-center gap-x-6 border-b border-fg bg-bg md:grid-cols-12 print:hidden">
       <Link href="/" className="font-semibold md:col-span-3">
         {profile.name}
       </Link>
-      <p className="hidden text-dim md:col-span-5 md:block">{profile.role}</p>
-      <nav aria-label="Main" className="flex justify-end gap-4 sm:gap-6 md:col-span-4">
+      {/* Hidden under the home page's opening screen until you scroll past it. */}
+      <p className="tagline hidden truncate text-dim lg:col-span-6 lg:block">{profile.statement.join(" ")}</p>
+      <nav aria-label="Main" className="flex justify-end gap-4 sm:gap-6 md:col-span-3 md:col-start-10">
         {items.map((item) => (
           <Link
             key={item.label}

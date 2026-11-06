@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PrintButton } from "@/components/print-button";
 import { flags, profile, resume } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Resume" };
@@ -23,7 +22,9 @@ export default function Resume() {
         <div className="md:col-span-9 md:col-start-4 print:col-span-12 print:col-start-1">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h1 className="text-[2.4rem] leading-none font-medium tracking-[-0.03em] print:text-[20pt]">{profile.name}</h1>
-            <PrintButton />
+            <a href="/Vihaan-Jain-Resume.pdf" download className="u text-mid print:hidden">
+              Download PDF
+            </a>
           </div>
           <p className="mt-3 text-mid">
             {profile.location} · {profile.email} · linkedin.com/in/vihaan-jain1 · github.com/vjwheelie

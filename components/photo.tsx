@@ -18,14 +18,18 @@ export function Photo({ media, className = "", caption = true }: { media: Media;
     <figure className={`min-w-0 ${className}`}>
       <div className="relative overflow-hidden bg-ph" style={{ aspectRatio: media.aspect }}>
         {media.youtube ? (
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${media.youtube}`}
-            title={media.alt}
-            loading="lazy"
-            allow="encrypted-media; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 h-full w-full"
-          />
+          <a href={`https://www.youtube.com/watch?v=${media.youtube}`} className="group absolute inset-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://i.ytimg.com/vi/${media.youtube}/hqdefault.jpg`}
+              alt={media.alt}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute bottom-0 left-0 bg-fg px-2.5 py-1.5 text-xs text-bg group-hover:underline">
+              Watch on YouTube ↗
+            </span>
+          </a>
         ) : ready && VIDEO.test(media.file!) ? (
           <video
             src={`/media/${media.file}`}

@@ -57,6 +57,17 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
               ))}
             </ul>
           )}
+          {p.links && (
+            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+              {p.links.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="u">
+                    {l.label} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {p.results && (
@@ -64,15 +75,22 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
             <table className="w-full border-t border-fg">
               <thead>
                 <tr className="text-left text-dim">
-                  <th className="py-3 font-normal">{p.results.head[0]}</th>
-                  <th className="py-3 text-right font-normal">{p.results.head[1]}</th>
+                  {p.results.head.map((h, i) => (
+                    <th key={h} className={`py-3 font-normal ${i > 0 ? "pl-4 text-right" : ""}`}>
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {p.results.rows.map(([k, v]) => (
+                {p.results.rows.map(([k, ...vs]) => (
                   <tr key={k} className="border-t border-line">
                     <td className="py-3 pr-4">{k}</td>
-                    <td className="py-3 text-right text-[1.25rem] tracking-[-0.02em] whitespace-nowrap tabular-nums">{v}</td>
+                    {vs.map((v, i) => (
+                      <td key={i} className="py-3 pl-4 text-right text-[1.25rem] tracking-[-0.02em] whitespace-nowrap tabular-nums">
+                        {v}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
@@ -85,11 +103,17 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
       {p.media.length > 0 && (
         <section
           className={`mt-24 grid gap-6 ${
-            phones ? "grid-cols-2 md:grid-cols-12 [&>*]:md:col-span-3 [&>*:first-child]:md:col-start-4" : p.media.length > 1 ? "md:grid-cols-2" : "md:grid-cols-12 [&>*]:md:col-span-9 [&>*]:md:col-start-4"
+            phones
+              ? "grid-cols-2 md:grid-cols-12 [&>*]:md:col-span-3 [&>*:first-child]:md:col-start-4"
+              : p.media.length === 1
+                ? "md:grid-cols-12 [&>*]:md:col-span-9 [&>*]:md:col-start-4"
+                : p.media.length === 3 && !p.media.some((m) => m.wide)
+                  ? "md:grid-cols-3"
+                  : "md:grid-cols-2"
           }`}
         >
           {p.media.map((m) => (
-            <Photo key={m.alt} media={m} />
+            <Photo key={m.alt} media={m} className={m.wide ? "md:col-span-2" : ""} />
           ))}
         </section>
       )}

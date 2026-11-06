@@ -1,49 +1,52 @@
 // Everything the site says lives in this file. Edit copy here, not in the pages.
 
 export const flags = {
-  // Leave false until your security officer says it's fine to list NSA publicly.
-  // Your clearance is intentionally not anywhere on this site.
-  showNSA: false,
+  // Shows the NSA program, title and dates, plus the clearance line on the resume page only.
+  showNSA: true,
   // Shows a gray frame wherever a photo/video hasn't been added yet.
   // Turn this off before you submit anything if some media is still missing.
-  showPendingMedia: true,
+  showPendingMedia: false,
+  // Hides the Writing link and pages. The drafts in content/writing are kept for later.
+  showWriting: false,
 };
 
 export const profile = {
   name: "Vihaan Jain",
-  role: "Software for national security",
+  // The home page opens on this, full screen, one line per entry. It also becomes
+  // the header line once you scroll past the opening screen.
+  statement: ["Still in high school.", "Already in national security."],
+  // The quieter line under it. Defense software and a company are where you want
+  // to go, not what you are yet, so keep them as wants.
+  next: "I want to build for defense. Software first, then a company of my own.",
   email: "jainvihaan65@gmail.com",
   location: "Ellicott City, Maryland",
   github: "https://github.com/vjwheelie",
   linkedin: "https://www.linkedin.com/in/vihaan-jain1",
   site: "https://vihaan-jain.com",
-  headline: "I build software for national security, and I measure whether it works.",
-  intro:
-    "Senior at Howard High School in Maryland. Intern at the Johns Hopkins Applied Physics Laboratory, working on electronic warfare. Previously at SalesPatriot (YC W25).",
-  introNSA: "Also in the NSA's High School Work Study Program.",
   description:
-    "Vihaan Jain builds software for national security. Electronic warfare at Johns Hopkins APL, AI for defense procurement at SalesPatriot (YC W25).",
+    "Vihaan Jain is a high school senior with an early start in national security, at Johns Hopkins APL and SalesPatriot (YC W25), who wants to build software and, someday, a company in defense.",
 };
+
+// The strip along the bottom of the opening screen: proof for the statement.
+// The NSA line only shows while flags.showNSA is on, and only ever the title.
+export const proof = [
+  { org: "National Security Agency", role: "Intelligence analysis aide", when: "Now", nsa: true },
+  { org: "Johns Hopkins APL", role: "Cyber and electronic warfare", when: "Now" },
+  { org: "SalesPatriot (YC W25)", role: "AI for defense procurement", when: "2025" },
+  { org: "Howard High School", role: "Senior", when: "Class of 2027" },
+];
 
 export type Media = {
   // File inside public/media/. The frame fills in automatically once the file exists.
   file?: string;
-  // YouTube video id (the part after watch?v=). Used instead of `file`.
+  // YouTube video id (the part after watch?v=). Used instead of `file`; shows
+  // the thumbnail and opens YouTube, since not every video allows embedding.
   youtube?: string;
   alt: string;
   caption?: string;
   aspect: string; // CSS aspect-ratio, e.g. "16 / 9"
+  wide?: boolean; // Spans both columns on a case study page.
 };
-
-export const heroMedia: Media[] = [
-  {
-    file: "apl-showcase.jpg",
-    alt: "Presenting at the ASPIRE showcase, Johns Hopkins APL",
-    caption: "ASPIRE showcase, Johns Hopkins APL, 2026",
-    aspect: "4 / 3",
-  },
-  { file: "portrait.jpg", alt: "Portrait of Vihaan Jain", caption: "Portrait", aspect: "4 / 5" },
-];
 
 export const why = [
   "The U.S. buys most of its defense technology from five companies. In the 1990s there were 51. They're good at building ships and aircraft and slow at shipping software, which is now where a lot of the fighting happens.",
@@ -60,8 +63,9 @@ export type Project = {
   summary: string;
   metric: { value: string; label: string };
   body: string[];
-  results?: { head: [string, string]; rows: [string, string][]; note?: string };
+  results?: { head: string[]; rows: string[][]; note?: string };
   list?: { title: string; text: string }[];
+  links?: { label: string; href: string }[];
   stack: string[];
   media: Media[];
 };
@@ -70,16 +74,17 @@ export const projects: Project[] = [
   {
     slug: "apl",
     year: "2026",
-    title: "Agentic attack and analysis on a live network",
+    title: "AI agents for cyber attack and threat analysis",
     org: "Johns Hopkins APL",
     role: "ASPIRE intern, cyber-physical systems",
     dates: "Summer 2026",
-    summary: "AI agents attacking and defending four real machines. Selected for the ASPIRE showcase, 40 of 92 teams.",
+    summary: "One set of agents runs attacks on an isolated network; another reads the logs and works out what happened. Selected for the ASPIRE showcase, 40 of 92 teams.",
     metric: { value: "90%", label: "of attacks caught, 20 runs" },
     body: [
-      "Our team built two sets of AI agents in Langflow and pointed them at a network of four Raspberry Pis. One set ran attacks. The other watched the network and tried to catch them. I built the custom Python tools and SSH capabilities that let the agents act on real machines instead of a simulation.",
+      "A lot of cyber work still means an analyst running attacks by hand, then reading through system logs to piece together what happened. Over the summer, Emmanuel Osei, Josiah Wheeler and I automated both halves with AI agents.",
+      "We built an isolated cyber range: two Kali Linux machines to attack from and two Raspberry Pis to attack. First we ran the attacks manually with Nmap, Hydra, SSH and Metasploit to set a baseline. Then we built the agents in Langflow. The attack agent takes a request in plain English, picks the tool and runs it. On defense, a logging agent pulls logs off the targets over SSH and an analysis agent classifies what it finds. I wrote the custom Python tools and SSH capabilities that let the agents run commands on real machines instead of a simulation.",
       "Across 20 runs, the analyzer caught 90% of attacks, and we cut a full run from 135 seconds to 23. We were one of 40 teams, out of 92, selected for APL's in-person ASPIRE showcase, and presented to more than 200 APL engineers and community members.",
-      "I also did independent research on neural networks (PyTorch, MNIST) and digital logic design. For the school year I've moved to an electronic warfare project, which stays at APL.",
+      "The next step is countermeasures for what the analyzer detects, and a single workflow that runs offense and defense together. For the school year I've moved to an electronic warfare project, which stays at APL.",
     ],
     results: {
       head: ["Measure", "Result"],
@@ -89,19 +94,38 @@ export const projects: Project[] = [
         ["Teams selected for the showcase", "40 of 92"],
       ],
     },
-    stack: ["Langflow", "Python", "SSH", "Raspberry Pi", "PyTorch"],
+    stack: ["Langflow", "Python", "SSH", "Kali Linux", "Raspberry Pi", "Nmap", "Hydra", "Metasploit"],
     media: [
       {
         file: "apl-showcase.jpg",
-        alt: "Presenting at the ASPIRE showcase",
-        caption: "ASPIRE showcase, Johns Hopkins APL",
+        alt: "Vihaan Jain standing next to the team's poster at the ASPIRE showcase",
+        caption: "At the ASPIRE showcase, Johns Hopkins APL, summer 2026.",
         aspect: "4 / 3",
       },
       {
-        file: "apl-architecture.png",
-        alt: "Diagram of the attack and analysis pipeline",
-        caption: "How the pipeline fits together",
+        file: "apl-poster.jpg",
+        alt: "Poster: Leveraging Agentic AI for Cyber Attack Execution and Threat Analysis",
+        caption: "The poster. Approved for public release; the cracked test credentials in Fig. 1 are blurred here.",
         aspect: "4 / 3",
+      },
+      {
+        file: "apl-attack-agent.jpg",
+        alt: "The attack agent in Langflow, wired to a Hydra tool and a command-execution tool",
+        caption: "The attack agent. It picks a tool and runs it from a Kali machine.",
+        aspect: "16 / 10",
+      },
+      {
+        file: "apl-detections.jpg",
+        alt: "Table of attack types the analysis agent identified in the logs",
+        caption: "Attacks the analysis agent picked out of the target's logs.",
+        aspect: "16 / 10",
+      },
+      {
+        file: "apl-defense-agents.jpg",
+        alt: "The defensive pipeline in Langflow: an SSH tool, a logging agent and an analysis agent",
+        caption: "Defense. The logging agent pulls logs over SSH and hands them to the analysis agent.",
+        aspect: "2047 / 803",
+        wide: true,
       },
     ],
   },
@@ -112,28 +136,49 @@ export const projects: Project[] = [
     org: "SalesPatriot (YC W25)",
     role: "Software engineering intern, via HUVTSP",
     dates: "Summer 2025",
-    summary: "A hand-checked benchmark on real requests for quote, then a bidding prototype with a human in the loop.",
+    summary: "A hand-checked benchmark on real requests for quote, then an audit log and a human review step for the AI's answers.",
     metric: { value: "9% / 5%", label: "critical errors, two models" },
     body: [
-      "SalesPatriot helps defense suppliers find and bid on Pentagon contracts. Its product relies on language models to pull details out of requests for quote (RFQs), so I measured how often those details were wrong.",
-      "I built a benchmark on real DIBBS RFQs. It converted the PDFs into model inputs, extracted fields like NSN, quantity, delivery time and delivery address, and compared every answer against values I checked by hand. Each run logged the model and prompt so any result could be reproduced. I presented the findings, their limits and my recommendations to SalesPatriot's CTO.",
-      "The models were useful but couldn't be trusted alone, so our team built a prototype that used them anyway. It scrapes open solicitations from SAM.gov and DIBBS, drafts a proposal, checks each claim against its source and logs every step. Anything flagged as risky goes to the contractor to confirm or dismiss before the bid goes out.",
+      "SalesPatriot helps defense suppliers find and bid on Pentagon contracts. Thousands of new requests for quote (RFQs) go up on DIBBS, the Defense Logistics Agency's bid board, every day, full of codes like NSNs and laid out differently by each office. The product leans on language models to read them, so we measured how often the models get the details wrong.",
+      "With Yashvi Mehta and Émillien Lavallée, I built a benchmark on four real RFQs. The models had to find seven fields in each: NSN, quantity, unit, delivery time, delivery type, delivery address and whether the contract was set aside for small businesses. Each RFQ went in twice, once as extracted text and once as images of the pages, and every answer was compared against a value we'd checked by hand.",
+      "Text beat images for both models, and GPT-4o-mini reading page images did worst, with 3 of 28 values wrong. Text has its own blind spot, though: it can't show which checkbox is ticked, and that's how an RFQ marks a small-business set-aside.",
+      "The sample was small, and to stay under token limits the models only saw the first ten pages of each RFQ. I presented those limits to SalesPatriot's CTO along with what we found and what we recommended.",
+      "The models were useful but couldn't be trusted alone, so we spent the next two weeks making them checkable, joined by Krish Sachithanand, Aditya Desale and Garvit Chadha. First we built an audit log that records the model, prompt version, timestamp and sources behind every answer. We chose not to store full responses, which kept the log light and kept sensitive text out of it.",
+      "Then we designed a review screen. The AI flags a risk in an RFQ, highlights the clause it came from and explains the issue, the risk and the impact, and the contractor confirms or dismisses it before anything goes out.",
     ],
     results: {
-      head: ["Model", "Critical errors"],
+      head: ["Model", "Text", "Images", "Overall"],
       rows: [
-        ["GPT-4o-mini", "9%"],
-        ["Claude 3.5 Sonnet", "5%"],
+        ["GPT-4o-mini", "2 of 28", "3 of 28", "9%"],
+        ["Claude 3.5 Sonnet", "1 of 28", "2 of 28", "5%"],
       ],
-      note: "112 values, each checked by hand.",
+      note: "Critical errors, meaning the model gave a wrong value. Formatting slips, like “4” for “4.000”, were counted separately and aren't included.",
     },
-    stack: ["Python", "LangChain", "OpenAI API", "Anthropic API", "Web scraping"],
+    links: [
+      { label: "Benchmark code", href: "https://github.com/vjwheelie/dibbs-rfq-hallucination-experiment" },
+      { label: "Audit log code", href: "https://github.com/ThousandthStar/llm-audit" },
+    ],
+    stack: ["Python", "LangChain", "Pydantic", "OpenAI API", "Anthropic API", "Figma"],
     media: [
       {
-        file: "bid-pipeline.png",
-        alt: "Screenshot of the bidding prototype review screen",
-        caption: "The review screen, where a contractor confirms or dismisses each flagged risk",
-        aspect: "16 / 10",
+        file: "rfq-page.jpg",
+        alt: "First page of a DLA request for quotations, with four fields outlined",
+        caption:
+          "Page 1 of 26 from one of the RFQs. The set-aside answer is a pair of checkboxes, and the address says “See Schedule”: it's on page 7. The buyer's contact details are blurred.",
+        aspect: "1749 / 643",
+        wide: true,
+      },
+      {
+        file: "audit-log.png",
+        alt: "An audit log entry showing the timestamp, model, two prompt versions and the source RFQs",
+        caption: "The audit log. Each answer keeps its model, prompt versions, timestamp and source documents.",
+        aspect: "7 / 4",
+      },
+      {
+        file: "review-screen.png",
+        alt: "Mockup of the review screen: an RFQ with a highlighted clause next to the AI's explanation and Confirm and Dismiss buttons",
+        caption: "The review screen, a Figma mockup. The flagged clause is highlighted in the RFQ.",
+        aspect: "7 / 4",
       },
     ],
   },
@@ -144,16 +189,44 @@ export const projects: Project[] = [
     org: "Imai Ventures, LLC",
     role: "Co-founder & CTO",
     dates: "Mar 2026 – present",
-    summary: "Co-founder and CTO. A food scanner that scores food against health goals and dietary restrictions.",
+    summary: "Co-founder and CTO. A label scanner that scores food against FDA reference values and the limits you set. Launching Q1 2027.",
     metric: { value: "26", label: "beta testers" },
     body: [
-      "MustCheck scans a food and scores it against your health goals and dietary restrictions. I co-founded the company, designed the rating algorithm and built the app end to end.",
-      "The web version is in beta with 26 testers. We're partnered with the Jain Society of Metropolitan Washington and JITO USA as distribution channels, and I'm building an iOS version that connects to Apple Health.",
+      "MustCheck reads a food or cosmetic label, from a photo or a barcode, and scores it in about three seconds. I co-founded the company, designed the scoring and built the app end to end.",
+      "The web beta runs in eight languages, including Hindi and Gujarati, and has 26 testers. The Jain Society of Metropolitan Washington and JITO USA are our distribution partners, and the iOS and Android apps launch in Q1 2027, with Apple Health on iOS.",
     ],
-    stack: ["Full stack", "Rating algorithm", "iOS", "Apple Health"],
+    list: [
+      {
+        title: "Allergens are hard stops",
+        text: "If you've excluded an allergen, you get an alert. It never gets averaged into a score.",
+      },
+      {
+        title: "Two scores, side by side",
+        text: "One against FDA reference values (21 CFR 101.9) and NOVA processing levels, one against your own limits.",
+      },
+      {
+        title: "Open scoring",
+        text: "Every formula and threshold is published, and no brand pays for placement.",
+      },
+    ],
+    links: [
+      { label: "Try the web beta", href: "https://mustcheck.vercel.app" },
+      { label: "imaiventures.com", href: "https://www.imaiventures.com" },
+    ],
+    stack: ["OCR", "Barcode scanning", "Scoring model", "Full stack", "Apple Health"],
     media: [
-      { file: "mustcheck-scan.png", alt: "MustCheck scanning a food label", caption: "Scanning", aspect: "9 / 19.5" },
-      { file: "mustcheck-score.png", alt: "MustCheck score screen", caption: "The score", aspect: "9 / 19.5" },
+      {
+        file: "mustcheck-scan.png",
+        alt: "MustCheck's scan screen, with camera, upload and barcode options",
+        caption: "Scan by camera, photo or barcode.",
+        aspect: "9 / 19.5",
+      },
+      {
+        file: "mustcheck-profile.png",
+        alt: "MustCheck's health profile, listing health conditions to choose from",
+        caption: "Your health focus and diet shape every score.",
+        aspect: "9 / 19.5",
+      },
     ],
   },
   {
@@ -161,32 +234,34 @@ export const projects: Project[] = [
     year: "2022–",
     title: "Documentaries on state secrets",
     org: "National History Day",
-    role: "Director and researcher",
+    role: "Co-director and researcher",
     dates: "2022 – present",
-    summary: "The Pentagon Papers, India's 1998 nuclear tests, the Partition border.",
+    summary: "Three films: the Pentagon Papers, India's 1998 nuclear tests, the Partition border.",
     metric: { value: "3×", label: "Maryland champion" },
     body: [
-      "Since 2022 I've made documentaries for National History Day, each built on 50+ sources and interviews with experts. They've won the Maryland title three times, won two national awards, and earned a citation from the Maryland House of Delegates.",
+      "Since 2022, I've co-directed documentaries for National History Day, each built on 50+ sources and interviews with experts. They've won the Maryland title three times, won two national awards, and earned a citation from the Maryland House of Delegates.",
+      "Each one turns on a secret: a leaked study of the Vietnam War, nuclear tests hidden from American satellites, and a border kept quiet until two days after independence.",
     ],
     list: [
       {
-        title: "New York Times v. United States",
-        text: "The Pentagon Papers, and the Supreme Court case over whether a newspaper could print them.",
+        title: "The Controversy Behind the First Amendment, 2025",
+        text: "New York Times Co. v. United States, and whether a newspaper could print the Pentagon Papers. Maryland champion; national qualifier.",
       },
       {
-        title: "Pokhran '98",
-        text: "India prepared five nuclear tests under American spy satellites. The CIA didn't see them coming.",
+        title: "The Turning Point in Indian Nuclear History: Pokhran '98, 2024",
+        text: "India prepared five nuclear tests under American spy satellites, and the CIA didn't see them coming. Maryland champion; national qualifier.",
       },
       {
-        title: "Partition of India",
-        text: "The border that split India and Pakistan was kept secret until two days after independence.",
+        title: "From Traders to Traitors, 2023",
+        text: "How Britain framed the Partition of India, including a border it kept secret until two days after independence. Maryland champion, junior division; national qualifier.",
       },
     ],
+    links: [{ label: "YouTube channel", href: "https://www.youtube.com/@VihaanNealNHD" }],
     stack: ["Research", "Interviews", "Film editing"],
     media: [
-      { youtube: "", alt: "Documentary: New York Times v. United States", caption: "New York Times v. United States", aspect: "16 / 9" },
-      { youtube: "", alt: "Documentary: Pokhran '98", caption: "Pokhran '98", aspect: "16 / 9" },
-      { youtube: "", alt: "Documentary: Partition of India", caption: "Partition of India", aspect: "16 / 9" },
+      { youtube: "eKtTNYSOXc8", alt: "Documentary: The Controversy Behind the First Amendment", caption: "The Controversy Behind the First Amendment", aspect: "16 / 9" },
+      { youtube: "OtLiACj-QFo", alt: "Documentary: Pokhran '98", caption: "Pokhran '98", aspect: "16 / 9" },
+      { youtube: "MJC6wFqdYmE", alt: "Documentary: From Traders to Traitors", caption: "From Traders to Traitors", aspect: "16 / 9" },
     ],
   },
 ];
@@ -211,12 +286,12 @@ export const earlier: EarlierItem[] = [
   },
 ];
 
-// Rewrite these in your own words. Each one points at something you did.
+// Your own words. Read in order, they're a process: problem, understanding, questions, build.
 export const beliefs = [
-  "Measure it before you trust it.",
-  "Ship the rough version, then make it fast.",
-  "Read the primary source.",
-  "Ask the people closest to the problem first.",
+  "Start with the problem, not the solution.",
+  "Understand it before you try to fix it.",
+  "Keep asking the question why and so what.",
+  "Build! Execute on ideas.",
 ];
 
 export const record = [
@@ -244,7 +319,8 @@ export const resume = {
       org: "National Security Agency",
       title: "High School Work Study Program · Intelligence Analysis Aide",
       dates: "Sep 2026 – Present",
-      bullets: [],
+      // Added at your request. This is the only place on the site the clearance appears.
+      bullets: ["TS/SCI Clearance w/ Full Scope Poly"],
       nsa: true,
     },
     {
@@ -252,7 +328,7 @@ export const resume = {
       title: "ASPIRE Intern · Summer: Cyber-Physical Systems · School year: Electronic Warfare",
       dates: "Jun 2026 – Present",
       bullets: [
-        "Co-built agentic AI attack and analysis pipelines in Langflow; built custom Python tools and SSH capabilities. Analyzer flagged 90% of attacks across 20 runs on a four-node Raspberry Pi network; cut run time from 135 s to 23 s.",
+        "Co-built agentic AI attack and analysis pipelines in Langflow; built custom Python tools and SSH capabilities. Analyzer flagged 90% of attacks across 20 runs on an isolated cyber range (two Kali Linux attackers, two Raspberry Pi targets); cut run time from 135 s to 23 s.",
         "Selected for the in-person ASPIRE Showcase (40 of 92 teams); presented to 200+ APL engineers and community members.",
         "Independent research on neural networks and digital logic design (PyTorch, MNIST, Boolean algebra, gates and circuits).",
       ],
@@ -272,7 +348,7 @@ export const resume = {
       dates: "Mar 2026 – Present",
       bullets: [
         "Built MustCheck, a food-scanning app that scores foods against health goals and dietary restrictions; designed the rating algorithm; full-stack development.",
-        "Web beta live with 26 testers; channel partners JSMW and JITO USA; iOS version with Apple Health integration in development.",
+        "Web beta live with 26 testers; channel partners JSMW and JITO USA; iOS and Android launch planned for Q1 2027, with Apple Health integration.",
       ],
     },
     {

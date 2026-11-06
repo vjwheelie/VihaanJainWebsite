@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   description: profile.description,
   openGraph: {
     title: profile.name,
-    description: profile.headline,
+    description: `${profile.statement.join(" ")} ${profile.next}`,
     url: profile.site,
     siteName: profile.name,
     type: "website",
   },
-  twitter: { card: "summary_large_image", title: profile.name, description: profile.headline },
+  twitter: { card: "summary_large_image", title: profile.name, description: `${profile.statement.join(" ")} ${profile.next}` },
 };
 
 export const viewport: Viewport = {

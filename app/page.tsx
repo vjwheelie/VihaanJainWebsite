@@ -1,27 +1,36 @@
 import Link from "next/link";
-import { Photo } from "@/components/photo";
+import { Cover } from "@/components/cover";
 import { Row } from "@/components/row";
-import { beliefs, earlier, flags, heroMedia, profile, projects, record, why } from "@/lib/site";
+import { beliefs, earlier, flags, profile, projects, proof, record, why } from "@/lib/site";
 
 export default function Home() {
-  const [wide, tall] = heroMedia;
-
   return (
     <>
-      <section className="grid gap-x-6 pt-[14vh] pb-[11vh] md:grid-cols-12">
-        <h1 className="text-[2.35rem] leading-[1.04] font-medium tracking-[-0.035em] sm:text-[3.4rem] md:col-span-10 lg:text-[4.6rem]">
-          {profile.headline}
-        </h1>
-        <p className="mt-10 text-[1.08rem] leading-[1.55] text-mid md:col-span-6 md:col-start-4 md:mt-12 lg:col-span-5 lg:col-start-4">
-          {profile.intro}
-          {flags.showNSA && ` ${profile.introNSA}`}
-        </p>
-      </section>
-
-      <div className="grid gap-6 md:grid-cols-12">
-        <Photo media={wide} className="md:col-span-7" />
-        <Photo media={tall} className="md:col-span-5 md:self-end" />
-      </div>
+      <Cover>
+        <div className="cover-statement my-auto">
+          <h1 className="text-[clamp(2.75rem,min(6.2vw,12svh),7rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
+            {profile.statement.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h1>
+          <p className="mt-[5svh] max-w-[30ch] text-[clamp(1.25rem,2vw,1.85rem)] leading-[1.25] tracking-[-0.015em] text-mid">
+            {profile.next}
+          </p>
+        </div>
+        <dl className="mt-auto grid grid-cols-2 gap-x-6 gap-y-5 border-t border-fg pt-4 md:grid-cols-4">
+          {proof
+            .filter((x) => !x.nsa || flags.showNSA)
+            .map((x) => (
+              <div key={x.org}>
+                <dt className="font-medium">{x.org}</dt>
+                <dd className="text-mid">{x.role}</dd>
+                <dd className="text-dim tabular-nums">{x.when}</dd>
+              </div>
+            ))}
+        </dl>
+      </Cover>
 
       <Row label="Why defense">
         <div className="max-w-[38rem] space-y-5 pt-4 text-[1.2rem] leading-[1.5] tracking-[-0.005em] sm:text-[1.3rem]">

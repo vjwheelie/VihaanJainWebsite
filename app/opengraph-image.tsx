@@ -5,7 +5,7 @@ export const alt = profile.name;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Link preview: the header rule and the headline, nothing else.
+// Link preview: the header rule and the opening statement, nothing else.
 export default function OpenGraphImage() {
   return new ImageResponse(
     (
@@ -30,11 +30,14 @@ export default function OpenGraphImage() {
           }}
         >
           <span style={{ fontWeight: 600 }}>{profile.name}</span>
-          <span style={{ color: "#74746f" }}>{profile.role}</span>
+          <span style={{ color: "#74746f" }}>{profile.site.replace("https://", "")}</span>
         </div>
-        <div style={{ display: "flex", marginTop: 110, fontSize: 76, lineHeight: 1.04, letterSpacing: -3, maxWidth: 1000 }}>
-          {profile.headline}
+        <div style={{ display: "flex", flexDirection: "column", marginTop: 76, fontSize: 84, fontWeight: 600, lineHeight: 1, letterSpacing: -3.5 }}>
+          {profile.statement.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
         </div>
+        <div style={{ display: "flex", marginTop: 40, fontSize: 32, color: "#4f4f4c", maxWidth: 900 }}>{profile.next}</div>
       </div>
     ),
     size,

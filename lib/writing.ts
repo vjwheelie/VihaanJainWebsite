@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
+import { flags } from "@/lib/site";
 
 // Posts are markdown files in content/writing. Frontmatter:
 //   title, date (YYYY-MM-DD), summary, draft (true hides it from the live site)
@@ -37,7 +38,7 @@ function parse(file: string): Post {
 }
 
 export function getPosts(): Post[] {
-  if (!fs.existsSync(DIR)) return [];
+  if (!flags.showWriting || !fs.existsSync(DIR)) return [];
   const showDrafts = process.env.NODE_ENV !== "production";
   return fs
     .readdirSync(DIR)
