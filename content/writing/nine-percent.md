@@ -1,13 +1,13 @@
 ---
 title: Nine percent
 date: 2026-11-05
-summary: What I learned measuring how often language models misread Pentagon contracts.
+summary: What I learned measuring how often language models misread government contracts.
 draft: true
 ---
 
 <!-- DRAFT. Rewrite in your own voice before flipping draft to false. Everything in [brackets] is for you to fill in. -->
 
-In the summer of 2025 I was an intern at SalesPatriot, a YC startup that helps defense suppliers bid on Pentagon contracts. A lot of that work runs through requests for quote, or RFQs: dense PDFs that say what the government wants, how many, and by when.
+In the summer of 2025 I was an intern at SalesPatriot, a YC startup that helps defense suppliers bid on government contracts. A lot of that work runs through requests for quote, or RFQs: dense PDFs that say what the government wants, how many, and by when.
 
 The product used language models to pull those details out. I wanted to know how often they got them wrong.
 

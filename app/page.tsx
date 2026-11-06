@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Cover } from "@/components/cover";
 import { Row } from "@/components/row";
-import { beliefs, earlier, flags, profile, projects, proof, record, why } from "@/lib/site";
+import { about, beliefs, earlier, flags, profile, projects, proof, record, why } from "@/lib/site";
 
 export default function Home() {
   return (
@@ -31,6 +31,14 @@ export default function Home() {
             ))}
         </dl>
       </Cover>
+
+      <Row id="about" label="About">
+        <div className="max-w-[38rem] space-y-5 pt-4 text-[1.2rem] leading-[1.5] tracking-[-0.005em] sm:text-[1.3rem]">
+          {about.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
+      </Row>
 
       <Row label="Why defense">
         <div className="max-w-[38rem] space-y-5 pt-4 text-[1.2rem] leading-[1.5] tracking-[-0.005em] sm:text-[1.3rem]">

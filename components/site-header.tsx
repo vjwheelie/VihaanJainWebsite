@@ -7,6 +7,7 @@ import { profile } from "@/lib/site";
 export function SiteHeader({ hasWriting }: { hasWriting: boolean }) {
   const pathname = usePathname();
   const items = [
+    { href: "/#about", label: "About", active: false },
     { href: "/#work", label: "Work", active: pathname.startsWith("/work") },
     ...(hasWriting ? [{ href: "/writing", label: "Writing", active: pathname.startsWith("/writing") }] : []),
     { href: "/resume", label: "Resume", active: pathname.startsWith("/resume") },

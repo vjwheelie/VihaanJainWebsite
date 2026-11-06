@@ -31,7 +31,7 @@ export const profile = {
 // The NSA line only shows while flags.showNSA is on, and only ever the title.
 export const proof = [
   { org: "National Security Agency", role: "Intelligence analysis aide", when: "Now", nsa: true },
-  { org: "Johns Hopkins APL", role: "Cyber and electronic warfare", when: "Now" },
+  { org: "Johns Hopkins APL", role: "RF machine learning, electronic warfare group", when: "Now" },
   { org: "SalesPatriot (YC W25)", role: "AI for defense procurement", when: "2025" },
   { org: "Howard High School", role: "Senior", when: "Class of 2027" },
 ];
@@ -47,6 +47,15 @@ export type Media = {
   aspect: string; // CSS aspect-ratio, e.g. "16 / 9"
   wide?: boolean; // Spans both columns on a case study page.
 };
+
+// First section after the opening screen: who you are and what you want to do.
+export const about = [
+  "I'm Vihaan, a senior at Howard High School in Ellicott City, Maryland. Outside of class I'm usually playing tennis with friends, out on a mountain bike or listening to music.",
+  "I got into engineering through three years of PLTW classes, where we built small autonomous cars. The hardware was fun, but the code that decided what the car did next was what hooked me. Since then I've learned by building: apps, websites, a food-label scanner, and enough USACO problems to reach Gold.",
+  "National security came in through history. Since 2022 I've made documentaries about government secrets, from the Pentagon Papers to India's 1998 nuclear tests. Then the work got real. At SalesPatriot I measured how often AI misreads government contracts. At Johns Hopkins APL I helped build AI agents for a cyber range, and now I work on RF machine learning in APL's electronic warfare group. I'm also an intelligence analysis aide in the NSA's High School Work Study Program.",
+  "What I want to do is build software for defense: tools that keep up with threats that change in weeks, not years. Someday I want to start a company around it. I'm not there yet. Right now I'm learning how the field actually works and building whenever I can.",
+  "The rest of me: I lead the youth wing of a 21,800-member Jain organization, run my school's DECA chapter, speak Hindi and Spanish, and spent a summer in Pune working on a 5 MW solar project.",
+];
 
 export const why = [
   "The U.S. buys most of its defense technology from five companies. In the 1990s there were 51. They're good at building ships and aircraft and slow at shipping software, which is now where a lot of the fighting happens.",
@@ -84,7 +93,7 @@ export const projects: Project[] = [
       "A lot of cyber work still means an analyst running attacks by hand, then reading through system logs to piece together what happened. Over the summer, Emmanuel Osei, Josiah Wheeler and I automated both halves with AI agents.",
       "We built an isolated cyber range: two Kali Linux machines to attack from and two Raspberry Pis to attack. First we ran the attacks manually with Nmap, Hydra, SSH and Metasploit to set a baseline. Then we built the agents in Langflow. The attack agent takes a request in plain English, picks the tool and runs it. On defense, a logging agent pulls logs off the targets over SSH and an analysis agent classifies what it finds. I wrote the custom Python tools and SSH capabilities that let the agents run commands on real machines instead of a simulation.",
       "Across 20 runs, the analyzer caught 90% of attacks, and we cut a full run from 135 seconds to 23. We were one of 40 teams, out of 92, selected for APL's in-person ASPIRE showcase, and presented to more than 200 APL engineers and community members.",
-      "The next step is countermeasures for what the analyzer detects, and a single workflow that runs offense and defense together. For the school year I've moved to an electronic warfare project, which stays at APL.",
+      "The next step is countermeasures for what the analyzer detects, and a single workflow that runs offense and defense together. For the school year I've joined APL's electronic warfare group, where I work on radio frequency machine learning. That work stays at APL.",
     ],
     results: {
       head: ["Measure", "Result"],
@@ -132,14 +141,14 @@ export const projects: Project[] = [
   {
     slug: "llm-eval",
     year: "2025",
-    title: "How often LLMs misread Pentagon contracts",
+    title: "How often LLMs misread government contracts",
     org: "SalesPatriot (YC W25)",
     role: "Software engineering intern, via HUVTSP",
     dates: "Summer 2025",
     summary: "A hand-checked benchmark on real requests for quote, then an audit log and a human review step for the AI's answers.",
     metric: { value: "9% / 5%", label: "critical errors, two models" },
     body: [
-      "SalesPatriot helps defense suppliers find and bid on Pentagon contracts. Thousands of new requests for quote (RFQs) go up on DIBBS, the Defense Logistics Agency's bid board, every day, full of codes like NSNs and laid out differently by each office. The product leans on language models to read them, so we measured how often the models get the details wrong.",
+      "SalesPatriot helps defense suppliers find and bid on government contracts. Thousands of new requests for quote (RFQs) go up on DIBBS, the Defense Logistics Agency's bid board, every day, full of codes like NSNs and laid out differently by each office. The product leans on language models to read them, so we measured how often the models get the details wrong.",
       "With Yashvi Mehta and Émillien Lavallée, I built a benchmark on four real RFQs. The models had to find seven fields in each: NSN, quantity, unit, delivery time, delivery type, delivery address and whether the contract was set aside for small businesses. Each RFQ went in twice, once as extracted text and once as images of the pages, and every answer was compared against a value we'd checked by hand.",
       "Text beat images for both models, and GPT-4o-mini reading page images did worst, with 3 of 28 values wrong. Text has its own blind spot, though: it can't show which checkbox is ticked, and that's how an RFQ marks a small-business set-aside.",
       "The sample was small, and to stay under token limits the models only saw the first ten pages of each RFQ. I presented those limits to SalesPatriot's CTO along with what we found and what we recommended.",
@@ -325,7 +334,7 @@ export const resume = {
     },
     {
       org: "Johns Hopkins University Applied Physics Laboratory",
-      title: "ASPIRE Intern · Summer: Cyber-Physical Systems · School year: Electronic Warfare",
+      title: "ASPIRE Intern · Summer: Cyber-Physical Systems · School year: Electronic Warfare, RF Machine Learning",
       dates: "Jun 2026 – Present",
       bullets: [
         "Co-built agentic AI attack and analysis pipelines in Langflow; built custom Python tools and SSH capabilities. Analyzer flagged 90% of attacks across 20 runs on an isolated cyber range (two Kali Linux attackers, two Raspberry Pi targets); cut run time from 135 s to 23 s.",
